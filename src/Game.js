@@ -1,38 +1,50 @@
 import React, {Component} from 'react';
-import KeyButton from './KeyButton';
+import KeyBoard from './KeyBoard';
 
 class Game extends Component {
-    static defaultProps = {
-        keybord: ['q', 'w', 'e', 'r', 't', 'y', 
-            'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 
-            'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 
-            'v', 'b', 'n', 'm'
-        ]
-    }
     constructor(props) {
         super(props)
         this.state = {
-            
+            count: this.props.word.length,
+            hang: 6
+
         }
         this.keyClick = this.keyClick.bind(this)
+        this.isWin = this.isWin.bind(this)
     }
 
-    keyClick(e) {
-        console.log( e.target.innerText)
+    keyClick(keyValue) {
+        if(this.props.word.search(keyValue) >= 0) {
+            let target = document.getElementById(keyValue)
+            target.innerText = keyValue;
+            target.removeAttribute('id');
+            this.setState({count: this.state.count - 1});
+        } else {
+            this.setState({hang: this.state.hang - 1});
+        }
+    }
+
+    isWin() {
+        this.state.count === 0 ? 
+            alert('You are a Winner!!!') :
+            console.log('not yet')
     }
 
     render() {
-        const {keybord} = this.props;
+        const {word} = this.props;
         const {keyClick} = this;
-        const allKeys = keybord.map((val, index) => {
-            return <KeyButton 
-                key={index} 
-                val={val}
-                keyClick={keyClick}
-                />
+
+        const secret = word.split('').map((val, index) => {
+            return <span id={val}>*</span>
         })
+
         return(
-            <div>{allKeys}</div>
+            <div>
+                <div>{this.state.hang}</div>
+                <KeyBoard keyClick={keyClick}/>
+                <hr/>
+                <div>{secret}</div>
+            </div>
         )
     }
 }
