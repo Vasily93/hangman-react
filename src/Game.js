@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import genarateWord from 'random-english-words';
 import KeyBoard from './KeyBoard';
 import Secret from './Secret';
 import Image from './Image';
@@ -7,11 +8,12 @@ class Game extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            word: this.props.word,
-            hang: 6
-
+            word: null,
+            hang: 6,
+            secret: null
         }
         this.keyClick = this.keyClick.bind(this);
+        this.newWord = this.newWord.bind(this);
     }
 
     keyClick(keyValue) {
@@ -27,6 +29,11 @@ class Game extends Component {
         }
     }
 
+    newWord() {
+        let word = genarateWord()
+        this.setState({word: word, secret: word})
+    }
+
     componentDidUpdate() {
         if(this.state.word.length === 0) {
             alert('you won!!!')
@@ -36,16 +43,17 @@ class Game extends Component {
     }
 
     render() {
-        const {word} = this.props;
         const {keyClick} = this;
-        
+        let starter = this.state.word ?
+            <Secret secret={this.state.secret} /> :
+            <button onClick={this.newWord}>Generate New Word</button>
         return(
             <div>
                 <Image stage={this.state.hang}/>
                 <hr/>
                 <KeyBoard keyClick={keyClick}/>
                 <hr/>
-                <Secret secret={word} />
+                {starter}
             </div>
         )
     }

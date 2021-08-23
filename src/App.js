@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <h1>HangMan Game!</h1>
-      <Game word={'revolution'}/>
+      <Game/>
     </div>
   );
 }
