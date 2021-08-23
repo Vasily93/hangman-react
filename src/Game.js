@@ -8,7 +8,6 @@ class Game extends Component {
         super(props)
         this.state = {
             word: this.props.word,
-            count: this.props.word.length,
             hang: 6
 
         }
@@ -21,7 +20,6 @@ class Game extends Component {
             target.innerText = keyValue;
             target.removeAttribute('id');
             this.setState({
-                count: this.state.count - 1,
                 word: this.state.word.replace(keyValue, '')
             });
         } else {
