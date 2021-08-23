@@ -14,7 +14,6 @@ class KeyBoard extends Component {
         this.handleClick = this.handleClick.bind(this)
     }
     handleClick(e) {
-        console.log(e.target.innerText)
         this.props.keyClick(e.target.innerText)
     }
     render() {
