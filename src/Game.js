@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import KeyBoard from './KeyBoard';
+import Secret from './Secret';
 
 class Game extends Component {
     constructor(props) {
@@ -33,17 +34,12 @@ class Game extends Component {
     render() {
         const {word} = this.props;
         const {keyClick} = this;
-
-        const secret = word.split('').map((val, index) => {
-            return <span id={val}>*</span>
-        })
-
         return(
             <div>
                 <div>{this.state.hang}</div>
                 <KeyBoard keyClick={keyClick}/>
                 <hr/>
-                <div>{secret}</div>
+                <Secret secret={word}/>
             </div>
         )
     }
