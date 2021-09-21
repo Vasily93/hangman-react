@@ -44,14 +44,20 @@ class Game extends Component {
 
     render() {
         const {keyClick} = this;
+
         let starter = this.state.word ?
             <Secret secret={this.state.secret} /> :
-            <button onClick={this.newWord}>Generate New Word</button>
+            <button onClick={this.newWord}>Generate New Word</button>;
+
+        let keyboard = this.state.word ? 
+            <KeyBoard keyClick={keyClick}/> :
+            'get new secret word!';
+
         return(
             <div>
                 <Image stage={this.state.stage}/>
                 <hr/>
-                <KeyBoard keyClick={keyClick}/>
+                {keyboard}
                 <hr/>
                 {starter}
             </div>
