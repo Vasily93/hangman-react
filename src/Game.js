@@ -9,7 +9,7 @@ class Game extends Component {
         super(props)
         this.state = {
             word: null,
-            hang: 6,
+            stage: 1,
             secret: null
         }
         this.keyClick = this.keyClick.bind(this);
@@ -25,7 +25,7 @@ class Game extends Component {
                 word: this.state.word.replace(keyValue, '')
             });
         } else {
-            this.setState({hang: this.state.hang - 1});
+            this.setState({stage: this.state.stage + 1});
         }
     }
 
@@ -37,7 +37,7 @@ class Game extends Component {
     componentDidUpdate() {
         if(this.state.word.length === 0) {
             alert('you won!!!')
-        } else if(this.state.hang === 0) {
+        } else if(this.state.stage === 7) {
             alert('You lost!')
         }
     }
@@ -49,7 +49,7 @@ class Game extends Component {
             <button onClick={this.newWord}>Generate New Word</button>
         return(
             <div>
-                <Image stage={this.state.hang}/>
+                <Image stage={this.state.stage}/>
                 <hr/>
                 <KeyBoard keyClick={keyClick}/>
                 <hr/>
